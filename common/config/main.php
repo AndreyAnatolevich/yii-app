@@ -10,4 +10,10 @@ return [
             'class' => 'yii\caching\FileCache',
         ],
     ],
+
+    'modules' => [
+        'admin' => [
+            'class' => 'common\modules\admin\Module',
+        ],
+    ],
 ];
