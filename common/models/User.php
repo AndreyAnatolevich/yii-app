@@ -7,7 +7,6 @@ use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
-use yii\db\Expression;
 
 /**
  * User model
@@ -50,7 +49,7 @@ class User extends ActiveRecord implements IdentityInterface
                 'class' => TimestampBehavior::className(),
                 'createdAtAttribute' => 'createdAt',
                 'updatedAtAttribute' => 'updatedAt',
-                'value' => date('Y-m-d'),
+                'value' => date("Y-m-d H:i:s"),
             ],
         ];
     }
