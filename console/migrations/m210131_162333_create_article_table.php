@@ -19,6 +19,17 @@ class m210131_162333_create_article_table extends Migration
             'date' => $this->date(),
             'userId' => $this->integer(),
         ]);
+
+        // add foreign key for table `user`
+        $this->addForeignKey(
+            'fk-article-user-id',
+            'article',
+            'userId',
+            'user',
+            'userId',
+            'CASCADE'
+        );
+
     }
 
     /**
