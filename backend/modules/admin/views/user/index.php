@@ -4,18 +4,18 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\ArticleSearch */
+/* @var $searchModel common\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Base Articles';
+$this->title = 'Base Users';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="base-article-index">
+<div class="base-user-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Base Article', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Base User', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,11 +26,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'articleId',
-            'title',
-            'content:ntext',
-            'date',
             'userId',
+            'username',
+            'authKey',
+            'passwordHash',
+            'passwordResetToken',
+            //'email:email',
+            //'status',
+            //'createdAt',
+            //'updatedAt',
+            //'verificationToken',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -1,18 +1,18 @@
 <?php
 
-namespace common\modules\admin\controllers;
+namespace backend\modules\admin\controllers;
 
 use Yii;
-use common\models\BaseUser;
-use common\models\UserSearch;
+use common\models\BaseArticle;
+use common\models\ArticleSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * UserController implements the CRUD actions for BaseUser model.
+ * ArticleController implements the CRUD actions for BaseArticle model.
  */
-class UserController extends Controller
+class ArticleController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class UserController extends Controller
     }
 
     /**
-     * Lists all BaseUser models.
+     * Lists all BaseArticle models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new UserSearch();
+        $searchModel = new ArticleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class UserController extends Controller
     }
 
     /**
-     * Displays a single BaseUser model.
+     * Displays a single BaseArticle model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,16 +58,16 @@ class UserController extends Controller
     }
 
     /**
-     * Creates a new BaseUser model.
+     * Creates a new BaseArticle model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new BaseUser();
+        $model = new BaseArticle();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->userId]);
+            return $this->redirect(['view', 'id' => $model->articleId]);
         }
 
         return $this->render('create', [
@@ -76,7 +76,7 @@ class UserController extends Controller
     }
 
     /**
-     * Updates an existing BaseUser model.
+     * Updates an existing BaseArticle model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -87,7 +87,7 @@ class UserController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->userId]);
+            return $this->redirect(['view', 'id' => $model->articleId]);
         }
 
         return $this->render('update', [
@@ -96,7 +96,7 @@ class UserController extends Controller
     }
 
     /**
-     * Deletes an existing BaseUser model.
+     * Deletes an existing BaseArticle model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +110,15 @@ class UserController extends Controller
     }
 
     /**
-     * Finds the BaseUser model based on its primary key value.
+     * Finds the BaseArticle model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return BaseUser the loaded model
+     * @return BaseArticle the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = BaseUser::findOne($id)) !== null) {
+        if (($model = BaseArticle::findOne($id)) !== null) {
             return $model;
         }
 
