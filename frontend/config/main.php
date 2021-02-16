@@ -14,6 +14,10 @@ return [
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+                'application/xml' => 'yii\web\XmlParser',
+            ]
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -36,14 +40,21 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
+            'enableStrictParsing' => false, // потом настроить при true
             'showScriptName' => false,
             'rules' => [
+                ['class'    => 'yii\rest\UrlRule', 'controller' => 'user'],
+                ['class'    => 'yii\rest\UrlRule', 'controller' => 'article'],
+                '/'         => 'site/index',
+                'about'     => 'site/about',
+                'contact'   => 'site/contact',
+                'logout'    => 'site/logout',
+                'login'     => 'site/login',
+                'signup'    => 'site/signup',
             ],
-        ],
-        */
+        ]
     ],
     'params' => $params,
 ];
