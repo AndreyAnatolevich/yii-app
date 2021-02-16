@@ -8,7 +8,7 @@ use yii\widgets\DetailView;
 /* @var $model common\models\BaseArticle */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Base Articles', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Articles', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 YiiAsset::register($this);
 ?>
