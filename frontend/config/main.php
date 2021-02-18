@@ -45,14 +45,14 @@ return [
             'enableStrictParsing' => false, // потом настроить при true
             'showScriptName' => false,
             'rules' => [
-                ['class'    => 'yii\rest\UrlRule', 'controller' => 'user'],
-                ['class'    => 'yii\rest\UrlRule', 'controller' => 'article'],
-                '/'         => 'site/index',
-                'about'     => 'site/about',
-                'contact'   => 'site/contact',
-                'logout'    => 'site/logout',
-                'login'     => 'site/login',
-                'signup'    => 'site/signup',
+//                ['class'    => 'yii\rest\UrlRule', 'controller' => 'user'],
+//                ['class'    => 'yii\rest\UrlRule', 'controller' => 'article'],
+//                '/'         => 'site/index',
+//                'about'     => 'site/about',
+//                'contact'   => 'site/contact',
+//                'logout'    => 'site/logout',
+//                'login'     => 'site/login',
+//                'signup'    => 'site/signup',
             ],
         ]
     ],
