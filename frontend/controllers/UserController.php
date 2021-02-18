@@ -2,12 +2,10 @@
 
 namespace frontend\controllers;
 
-use common\models\Token;
 use Yii;
 use frontend\models\LoginForm;
 use yii\rest\Controller;
 use common\models\User;
-use yii\base\Model;
 use frontend\models\AccessToken;
 
 class UserController extends Controller

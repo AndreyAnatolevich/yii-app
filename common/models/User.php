@@ -53,13 +53,6 @@ class User extends BaseUser implements IdentityInterface
         ];
     }
 
-//    public function behaviors()
-//    {
-//        return [
-//            TimestampBehavior::className(),
-//        ];
-//    }
-
     /**
      * {@inheritdoc}
      */
@@ -86,11 +79,6 @@ class User extends BaseUser implements IdentityInterface
     {
         throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
     }
-
-//    public static function findIdentityByAccessToken($token, $type = null)
-//    {
-//        return static::findOne(['access_token' => $token]);
-//    }
 
     /**
      * Finds user by username
