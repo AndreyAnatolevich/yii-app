@@ -31,24 +31,11 @@ class AccessToken extends \yii\db\ActiveRecord
 //    public function rules()
 //    {
 //        return [
-//            [['userId', 'accessToken', 'expiredAt'], 'required'],
-//            [['userId', 'expiredAt'], 'integer'],
+//            [['userId', 'accessToken'], 'required'],
+//            [['userId'], 'integer'],
 //            [['accessToken'], 'string', 'max' => 255],
 //            [['accessToken'], 'unique'],
 //            [['userId'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['userId' => 'userId']],
-//        ];
-//    }
-
-    /**
-     * {@inheritdoc}
-     */
-//    public function attributeLabels()
-//    {
-//        return [
-//            'accessTokenId' => 'Access Token ID',
-//            'userId' => 'User ID',
-//            'accessToken' => 'Access Token',
-//            'expiredAt' => 'Expired At',
 //        ];
 //    }
 
@@ -63,9 +50,8 @@ class AccessToken extends \yii\db\ActiveRecord
 //    }
 
 
-    public function generateToken($expire)
+    public function generateToken()
     {
-        $this->expiredAt = $expire;
         $this->accessToken = \Yii::$app->security->generateRandomString();
     }
 
