@@ -2,42 +2,63 @@
 
 namespace frontend\controllers;
 
+use common\models\Token;
 use Yii;
 use frontend\models\LoginForm;
-use yii\rest\ActiveController;
-use yii\filters\auth\HttpBasicAuth;
+use yii\rest\Controller;
+use common\models\User;
+use yii\base\Model;
+use frontend\models\AccessToken;
 
-class UserController extends ActiveController
+class UserController extends Controller
 {
-    public $modelClass = 'frontend\models\UserSearch';
 
-//    public function behaviors()
-//    {
-//        $behaviors = parent::behaviors();
-//        $behaviors['authenticator'] = [
-//            'class' => HttpBasicAuth::className(),
-//        ];
-//        return $behaviors;
-//    }
+    /**
+     * API. Апи для регистрации пользователя
+     * АПИ должно принимать входящие параметры и регистрировать пользователя
+     * Имя
+     * Email
+     * Пароль
+     * Возвращает accessToken или ошибку
+     */
 
-    public function actionList()
+    public function actionSingup()
     {
-        return [
-            [
-                'userId' => 1,
-                'text' => 'test post',
-            ],
-        ];
+        $request = Yii::$app->request->bodyParams;
+        $user = new User();
+        $user->username = $request['username'];
+        $user->email = $request['email'];
+        $token = new AccessToken();
+        $user->status = User::STATUS_ACTIVE;
+        $user->setPassword($request['password']);
+        $user->generateAuthKey();
+        if ($user->save()) {
+            $token->userId = $user->getId();
+            $token->generateToken();
+            $token->save();
+            return $token->accessToken;
+        }
+        return $user;
+
     }
+
+    /**
+     * API. Апи для авторизации пользователя
+     * АПИ должно принимать входящие параметры:
+     * Email
+     * Пароль
+     * Проверять, есть ли в БД пользователь с таким email и паролем
+     * Если есть, то выдавать ключ доступа accessToken, если нет возвращать ошибку
+     */
 
     public function actionLogin()
     {
         $model = new LoginForm();
         $model->load(Yii::$app->request->bodyParams, '');
         if ($token = $model->auth()) {
-            return $token;
+            return $token->accessToken;
         } else {
             return $model;
-    }
+        }
     }
 }
