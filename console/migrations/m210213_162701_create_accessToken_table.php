@@ -16,7 +16,6 @@ class m210213_162701_create_accessToken_table extends Migration
             'accessTokenId' => $this->primaryKey(),
             'userId' => $this->integer()->notNull(),
             'accessToken' => $this->string()->notNull()->unique(),
-            'expiredAt' => $this->integer()->notNull(),
         ]);
         // add foreign key for table `user`
         $this->addForeignKey(
