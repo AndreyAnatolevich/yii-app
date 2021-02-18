@@ -87,6 +87,11 @@ class User extends BaseUser implements IdentityInterface
         throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
     }
 
+//    public static function findIdentityByAccessToken($token, $type = null)
+//    {
+//        return static::findOne(['access_token' => $token]);
+//    }
+
     /**
      * Finds user by username
      *
@@ -96,6 +101,17 @@ class User extends BaseUser implements IdentityInterface
     public static function findByUsername($username)
     {
         return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+    }
+
+    /**
+     * Finds user by email
+     *
+     * @param string $email
+     * @return static|null
+     */
+    public static function findByEmail($email)
+    {
+        return static::findOne(['email' => $email, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**
