@@ -14,5 +14,18 @@ namespace common\models;
  */
 class Article extends BaseArticle
 {
+    public function rules()
+    {
+        return array_merge(parent::rules(), [
+            [['content', 'userId'], 'required'],
+            [['date'], 'default', 'value' => date("Y-m-d H:i:s")],
+        ]);
+    }
+
+    public static function findByUserId($id)
+    {
+        return static::findAll(['userId'=>$id]);
+    }
+
 
 }
