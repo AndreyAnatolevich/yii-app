@@ -13,7 +13,6 @@ use yii\db\ActiveRecord;
  * @property string $accessToken
  * @property int $expiredAt
  *
- * @property User $user
  */
 class AccessToken extends \yii\db\ActiveRecord
 {
@@ -39,16 +38,24 @@ class AccessToken extends \yii\db\ActiveRecord
 //        ];
 //    }
 
-    /**
-     * Gets query for [[User]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
+//    /**
+//     * Gets query for [[User]].
+//     *
+//     * @return \yii\db\ActiveQuery
+//     */
 //    public function getUser()
 //    {
 //        return $this->hasOne(User::className(), ['userId' => 'userId']);
 //    }
+    public function getUserId($token)
+    {
+        return $this::findUser($token)['userId'];
+    }
 
+    static function findUser($token)
+    {
+        return static::findOne(['accessToken' => $token]);
+    }
 
     public function generateToken()
     {
