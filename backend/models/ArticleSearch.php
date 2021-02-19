@@ -4,12 +4,12 @@ namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\BaseArticle;
+use common\models\Article;
 
 /**
  * ArticleSearch represents the model behind the search form of `common\models\BaseArticle`.
  */
-class ArticleSearch extends BaseArticle
+class ArticleSearch extends Article
 {
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class ArticleSearch extends BaseArticle
      */
     public function search($params)
     {
-        $query = BaseArticle::find();
+        $query = Article::find();
 
         // add conditions that should always apply here
 
