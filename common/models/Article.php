@@ -23,7 +23,7 @@ class Article extends BaseArticle
     }
 
 
-    public function serializeToArray()
+    public function serializeToArray(): array
     {
         $data = [];
         $authorUser = User::findOne(['userId' => $this->userId])->username;
@@ -35,6 +35,4 @@ class Article extends BaseArticle
 
         return $data;
     }
-
-
 }

@@ -3,9 +3,11 @@
 namespace common\models;
 
 use Yii;
+use yii\base\Exception;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\web\IdentityInterface;
+use yii\base\InvalidArgumentException;
 
 /**
  * User model
@@ -32,7 +34,7 @@ class User extends BaseUser implements IdentityInterface
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%user}}';
     }
@@ -74,8 +76,9 @@ class User extends BaseUser implements IdentityInterface
 
     /**
      * {@inheritdoc}
+     * @throws NotSupportedException
      */
-    public static function findIdentityByAccessToken($token, $type = null)
+    public static function findIdentityByAccessToken($token, $type = null): IdentityInterface
     {
         throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
     }
@@ -86,7 +89,7 @@ class User extends BaseUser implements IdentityInterface
      * @param string $username
      * @return static|null
      */
-    public static function findByUsername($username)
+    public static function findByUsername(string $username): User
     {
         return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
     }
@@ -97,7 +100,7 @@ class User extends BaseUser implements IdentityInterface
      * @param string $email
      * @return static|null
      */
-    public static function findByEmail($email)
+    public static function findByEmail($email): User
     {
         return static::findOne(['email' => $email, 'status' => self::STATUS_ACTIVE]);
     }
@@ -126,7 +129,7 @@ class User extends BaseUser implements IdentityInterface
      * @param string $token verify email token
      * @return static|null
      */
-    public static function findByVerificationToken($token)
+    public static function findByVerificationToken($token): User
     {
         return static::findOne([
             'verificationToken' => $token,
@@ -170,7 +173,7 @@ class User extends BaseUser implements IdentityInterface
     /**
      * {@inheritdoc}
      */
-    public function validateAuthKey($authKey)
+    public function validateAuthKey($authKey): bool
     {
         return $this->getAuthKey() === $authKey;
     }
@@ -181,7 +184,8 @@ class User extends BaseUser implements IdentityInterface
      * @param string $password password to validate
      * @return bool if password provided is valid for current user
      */
-    public function validatePassword($password)
+
+    public function validatePassword($password): bool
     {
         return Yii::$app->security->validatePassword($password, $this->passwordHash);
     }
@@ -190,14 +194,21 @@ class User extends BaseUser implements IdentityInterface
      * Generates password hash from password and sets it to the model
      *
      * @param string $password
+     * @throws Exception
      */
+
     public function setPassword($password)
     {
+        if (!$password) {
+            throw new InvalidArgumentException('Password cannot be blank.');
+        }
         $this->passwordHash = Yii::$app->security->generatePasswordHash($password);
     }
 
+
     /**
      * Generates "remember me" authentication key
+     * @throws Exception
      */
     public function generateAuthKey()
     {
@@ -206,6 +217,7 @@ class User extends BaseUser implements IdentityInterface
 
     /**
      * Generates new password reset token
+     * @throws Exception
      */
     public function generatePasswordResetToken()
     {
@@ -214,6 +226,7 @@ class User extends BaseUser implements IdentityInterface
 
     /**
      * Generates new token for email verification
+     * @throws Exception
      */
     public function generateEmailVerificationToken()
     {

@@ -2,7 +2,7 @@
 
 namespace frontend\models;
 
-use Yii;
+use yii\base\InvalidArgumentException;
 use yii\db\ActiveRecord;
 
 /**
@@ -14,19 +14,20 @@ use yii\db\ActiveRecord;
  * @property int $expiredAt
  *
  */
-class AccessToken extends \yii\db\ActiveRecord
+class AccessToken extends ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
+    public static function tableName(): string
+     {
+       //TODO переименовать таблицу на accessToken?
         return 'accesstoken';
     }
 
-    /**
-     * {@inheritdoc}
-     */
+//    /**
+//     * {@inheritdoc}
+//     */
 //    public function rules()
 //    {
 //        return [
@@ -49,10 +50,13 @@ class AccessToken extends \yii\db\ActiveRecord
 //    }
     public function getUserId($token)
     {
+        if (!$token) {
+            throw new InvalidArgumentException('You must be logged in for this action');
+        }
         return $this::findUser($token)['userId'];
     }
 
-    static function findUser($token)
+    static function findUser($token): AccessToken
     {
         return static::findOne(['accessToken' => $token]);
     }
