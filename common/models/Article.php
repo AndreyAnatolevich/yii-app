@@ -22,9 +22,18 @@ class Article extends BaseArticle
         ]);
     }
 
-    public static function findByUserId($id)
+
+    public function serializeToArray()
     {
-        return static::findAll(['userId'=>$id]);
+        $data = [];
+        $authorUser = User::findOne(['userId' => $this->userId])->username;
+
+        $data['author'] = $authorUser;
+        $data['title'] = $this->title;
+        $data['content'] = $this->content;
+        $data['created'] = $this->date;
+
+        return $data;
     }
 
 
